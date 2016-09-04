@@ -1,0 +1,19 @@
+{
+  "name": "postulate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Roger Stringer <roger@datamcfly.com> (http://datamcfly.com/)",
+  "license": "ISC",
+  "dependencies": {
+    "glob": "7.0.6",
+    "js-yaml": "3.6.1",
+    "node-yaml": "3.0.0",
+    "uberdb": "github:freekrai/uberdb",
+    "walk": "2.3.9",
+    "yamljs": "0.2.8"
+  }
+}
