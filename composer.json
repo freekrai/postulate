@@ -1,0 +1,19 @@
+{
+    "name": "freekrai/joltstarter",
+    "description": "Jolt Starter App",
+    "authors": [
+        {
+            "name": "freekrai",
+            "email": "freekrai@me.com"
+        }
+    ],
+    "require": {
+		"freekrai/schemaless": "dev-master",
+        "gregwar/image": "dev-adapter",
+        "jolt/jolt": "dev-master",
+		"suin/php-rss-writer": ">=1.0",
+        "gregwar/image": "dev-adapter",
+		"dflydev/markdown": "v1.0.2",
+		"suin/php-rss-writer": ">=1.0"
+    }
+}
