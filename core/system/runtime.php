@@ -46,7 +46,7 @@ function pluralize($singular, $quantity=1, $plural=null) {
 function blueprints(){
 	$blueprints = array();
 	$path = config( 'blueprints.root' );
-	$load_list = glob($path.'/*.php');	
+	$load_list = glob($path.'/*.yml');	
 	foreach($load_list as $file) {
 		$yaml = spyc_load_file ( $file );
 		$name = $yaml['type'];
@@ -111,7 +111,7 @@ function user_loggedin(){
 /*
  * Used mostly for views, let's us grab user information for displaying on dashboard
  */
- 
+
 function get_user( $user_id ){
 	$app = \Jolt\Jolt::getInstance();
 	return $app->store('db')->findOne('user', array( '_id'=>$user_id ));
@@ -139,7 +139,7 @@ function embeddedorno( $layout = 'inside' ){
 //	Mostly involved in terms of checking if the page being rendered is embedded or not...
 function render($view, $locals = null, $layout = 'inside' ){
 	$app = \Jolt\Jolt::getInstance();
-	$app->render( $view, $locals, embeddedorno( $layout ) );		
+	$app->render( $view, $locals, embeddedorno( $layout ) );
 }
 
 function pagination($options){
@@ -154,7 +154,7 @@ function pagination($options){
 	$total = $options['total'];
 	$page = $options['page'];
 	$limit = $options['limit'];
-	
+
 	$pages = ceil( $total / $limit );
 	if( $page > 1 ){
 		$offset = ($page - 1) * $limit;
@@ -225,7 +225,7 @@ function pagination($options){
 	#	print_r($phpStr);
 		echo $renderer($data);
 	$output = ob_get_contents();
-	ob_end_clean();	
+	ob_end_clean();
 	return $output;
 */
 }
@@ -283,9 +283,9 @@ function link_tags( $tags ){
 		$renderer = LightnCandy::prepare($phpStr);
 		echo $renderer($data);
 	$output = ob_get_contents();
-	ob_end_clean();	
+	ob_end_clean();
 
-	return $output;	
+	return $output;
 */
 }
 
@@ -303,7 +303,7 @@ function post_head(){
 	<meta property="article:tag" content="reminders">
 	<meta property="article:tag" content="github">
 	<meta property="article:tag" content="markdown">
-	
+
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:site" content="@ttscoff">
 	<meta name="twitter:creator" content="@ttscoff">
@@ -311,7 +311,7 @@ function post_head(){
 	<meta name="twitter:description" content="In case you missed it this weekend, I wrote a little script called &quot;nvremind&quot; (pronounced &quot;nevermind&quot;). It scans folders of text files for occurrences of @remind(YYYY-mm-dd) tags and triggers">
 	<meta property="og:title" content="nvremind + Day One and more - BrettTerpstra.com">
 	<meta property="og:site_name" content="BrettTerpstra.com">
-	
+
 	<meta name="twitter:image" content="http://cdn3.brettterpstra.com/uploads/2013/06/nvreminddayone_lg.jpg" />
 	<meta property="og:image" content="http://cdn3.brettterpstra.com/uploads/2013/06/nvreminddayone_lg.jpg" />
 	<meta property="og:image:type" content="image/jpeg" />
@@ -333,7 +333,7 @@ function post_head(){
 	<link rel="canonical" href="<?php echo $url;?>" />
 <?php
 	$header = ob_get_contents();
-	ob_end_clean();	
+	ob_end_clean();
 	echo $header;
 }
 
@@ -348,7 +348,7 @@ function handlebars($template,$data){
 	$app = \Jolt\Jolt::getInstance();
 	$logo = config('blog.logo');
 	$cover = config('blog.cover');
-	
+
 	$data['@blog'] = array(
 		'title' => config('site.name'),
 		'description' => config('blog.description'),
@@ -392,7 +392,7 @@ function handlebars($template,$data){
 	<meta property="article:tag" content="reminders">
 	<meta property="article:tag" content="github">
 	<meta property="article:tag" content="markdown">
-	
+
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:site" content="@ttscoff">
 	<meta name="twitter:creator" content="@ttscoff">
@@ -400,7 +400,7 @@ function handlebars($template,$data){
 	<meta name="twitter:description" content="In case you missed it this weekend, I wrote a little script called &quot;nvremind&quot; (pronounced &quot;nevermind&quot;). It scans folders of text files for occurrences of @remind(YYYY-mm-dd) tags and triggers">
 	<meta property="og:title" content="nvremind + Day One and more - BrettTerpstra.com">
 	<meta property="og:site_name" content="BrettTerpstra.com">
-	
+
 	<meta name="twitter:image" content="http://cdn3.brettterpstra.com/uploads/2013/06/nvreminddayone_lg.jpg" />
 	<meta property="og:image" content="http://cdn3.brettterpstra.com/uploads/2013/06/nvreminddayone_lg.jpg" />
 	<meta property="og:image:type" content="image/jpeg" />
@@ -475,13 +475,13 @@ function store($key,$val=''){
 	}
 	return $app->store($key);
 }
-	
+
 function computeSignature($url, $data = array()) {
 	$app = \Jolt\Jolt::getInstance();
 	$authToken = $app->option('cookies.secret');
 	// sort the array by keys
 	ksort($data);
-	
+
 	// append the data array to the url string, with no delimiters
 	foreach ($data as $key => $value) {
 		$url = $url . $key . $value;
@@ -547,7 +547,7 @@ function format_telephone($phone = '', $convert = true, $trim = true){
 			$phone = str_ireplace($letters, $digit, $phone);
 		}
 	}
-	
+
 	$length = strlen($phone);
 	switch ($length) {
 		case 7:
@@ -600,9 +600,9 @@ function hashit($password){
 	//	grab our default salt, create a unique salt of that salt plus entered password, then hash the password with the unique salt...
 	$salt = config('password.salt');
 	$salt = sha1( md5($password.$salt) );
-	return md5( $password.$salt );	
+	return md5( $password.$salt );
 }
- 
+
 function generateHashWithSalt($password) {
 	$intermediateSalt = md5(uniqid(rand(), true));
 	$salt = substr($intermediateSalt, 0, MAX_LENGTH);
@@ -666,7 +666,7 @@ function normalize_phone_to_E164($phone) {
 	}
 
 	return $phone;
-}  
+}
 
 // return an abbreviated url string. ex: "http://example.com/123/page.htm" => "example.com...page.htm"
 function short_url($string, $max_len = 30)
@@ -879,21 +879,21 @@ function slugify($text){
 
 	// replace non letter or digits by -
 	$text = preg_replace('~[^\\pL\d]+~u', '-', $text);
-	
+
 	// trim
 	$text = trim($text, '-');
-	
+
 	// transliterate
 	if (function_exists('iconv')){
 		$text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
 	}
-	
+
 	// lowercase
 	$text = strtolower($text);
-	
+
 	// remove unwanted characters
 	$text = preg_replace('~[^-\w]+~', '', $text);
-	
+
 	if (empty($text)){
 		return 'n-a';
 	}
@@ -904,7 +904,7 @@ class SiteConfig{
 	private $settings;
 	private $environment;
 	private $configPath;
-	
+
 	public function __construct( $configPath = './config', $environment = '' ){
 		$this->configPath = $configPath;
 		$this->environment = $environment;
@@ -944,7 +944,7 @@ class SiteConfig{
 		return array_replace_recursive($items, $this->getRequire($file));
 	}
 	private function getRequire($file){
-		return require $file;		
+		return require $file;
 	}
 }
 
@@ -1033,7 +1033,7 @@ function content_form($post_type,$post_id = '',$action='',$thankyou = array()){
 		$app->db->insert('post', $post );
 		unset($_POST);
 		if( isset($thankyou['url']) ){
-			echo '<script>top.location.href="'.$thankyou['url'].'";</script>';			
+			echo '<script>top.location.href="'.$thankyou['url'].'";</script>';
 		}else if( isset($thankyou['msg']) ){
 			echo '<p>'.$thankyou['msg'].'</p>';
 		}else{
@@ -1063,7 +1063,7 @@ function content_form($post_type,$post_id = '',$action='',$thankyou = array()){
 function form_field($fname,$field,$post = array()){
 	$flabel = $field['label'];
 	$ftype = $field['type'];
-	
+
 	switch($ftype){
 		case 'related':
 #			print_r($field);
@@ -1100,7 +1100,7 @@ function form_field($fname,$field,$post = array()){
 						</div><!-- /input-group -->
 					</div><!-- /.col-lg-6 -->
 
-<?php 			
+<?php
 				}
 ?>
 			</div>
@@ -1112,12 +1112,12 @@ function form_field($fname,$field,$post = array()){
 		case 'file':
 ?>
 			<div class="form-group">
-				<label for="title"><?=$flabel?></label>				
+				<label for="title"><?=$flabel?></label>
 				<input type="file" class="form-control <?=$flcass?>" id="<?= $fname ?>" name="<?= $fname ?>" >
 				<p class="help-block">
 <?php 	if( isset($post) ){	?>
 	Current File: <a class="modalButton" data-toggle="modal" data-src="<?=$post[$fname]?>" data-title="<?=$post[$fname]?>" data-target="#modalbox"><?=$post[$fname]?></a>
-<?php 	}	?>					
+<?php 	}	?>
 				</p>
 			</div>
 <?php
@@ -1125,7 +1125,7 @@ function form_field($fname,$field,$post = array()){
 		case 'dropdown':
 ?>
 			<div class="form-group">
-				<label for="title"><?=$flabel?></label>				
+				<label for="title"><?=$flabel?></label>
 				<select class="form-control <?=$flcass?>" id="<?= $fname ?>" name="<?= $fname ?>">
 <?php
 				$options = explode(";",$field['options']);
@@ -1138,7 +1138,7 @@ function form_field($fname,$field,$post = array()){
 					}
 ?>
 						<option <?=$sel?> value="<?= $option ?>"><?=$option?></option>
-<?php			
+<?php
 				}
 ?>
 				</select>
@@ -1148,7 +1148,7 @@ function form_field($fname,$field,$post = array()){
 		case 'radio':
 ?>
 			<div class="form-group">
-				<label for="title"><?=$flabel?></label>				
+				<label for="title"><?=$flabel?></label>
 			</div>
 <?php
 			$options = explode(";",$field['options']);
@@ -1165,13 +1165,13 @@ function form_field($fname,$field,$post = array()){
 						<input <?=$sel?> type="radio" id="<?= $fname ?>" name="<?= $fname ?>" value="<?= $option ?>">&nbsp;&nbsp;<?=$option?>
 					</label>
 				</div>
-<?php			
+<?php
 			}
 			break;
 		case 'checkbox':
 ?>
 			<div class="form-group">
-				<label for="title"><?=$flabel?></label>				
+				<label for="title"><?=$flabel?></label>
 			</div>
 <?php
 			$options = explode(";",$field['options']);
@@ -1191,7 +1191,7 @@ function form_field($fname,$field,$post = array()){
 					<input <?=$sel?> type="checkbox" id="<?= $fname ?>[]" name="<?= $fname ?>[]" value="<?= $option ?>">&nbsp;&nbsp;<?=$option?>
 				</label>
 </div>
-<?php			
+<?php
 			}
 			break;
 		case 'hidden':
@@ -1220,7 +1220,7 @@ function form_field($fname,$field,$post = array()){
 	<label for="title"><?=$flabel?></label>
 	<input type="text" class="form-control" id="<?=$fname?>" name="<?=$fname?>" placeholder="Enter <?=$fname?>" value="<?php echo ( isset($post) ? $post[$fname] : '');?>">
 </div>
-<?php			
+<?php
 			break;
 	}
 }
@@ -1257,7 +1257,7 @@ function form_field_old($field,$label, $id,$name,$val=''){
 					}
 ?>
 					<option value="<?=$v?>" <?=$sel?>><?= ucwords($v)	?></option>
-<?php 			}	?>				
+<?php 			}	?>
 				</select>
 <?php
 				break;
@@ -1274,7 +1274,7 @@ function form_field_old($field,$label, $id,$name,$val=''){
 ?>
 					<option value="<?=$v?>" <?=$sel?>><?= ucwords($v)	?></option>
 
-<?php 			}	?>				
+<?php 			}	?>
 				</select>
 <?php
 				break;
@@ -1286,26 +1286,26 @@ function form_field_old($field,$label, $id,$name,$val=''){
 				}
 ?>
 				<label for="<?= $id ?>"><input <?=$sel?> type="<?= $field['type']?>" id="<?= $id ?>" name="<?= $name ?>" value="<?= $field['default'] ?>" <?=$field['extras']?> class="<?=$flcass?>" ><?=$label?></label>
-<?php			
+<?php
 				break;
 			case 'textarea':
 ?>
 <label for="<?= $id ?>"><?=$label?></label>
 <textarea class="form-control <?=$flcass?>" id="<?= $id ?>" name="<?= $name ?>" <?=$field['extras']?>><?= $field['default'] ?></textarea>
-<?php 	
+<?php
 
 				break;
 			default:
 ?>
 				<label for="<?= $id ?>"><?=$label?></label>
 				<input type="<?= $field['type']?>" class="form-control <?=$flcass?>" id="<?= $id ?>" name="<?= $name ?>" value="<?= $field['default'] ?>"<?=$field['extras']?>>
-<?php 	
+<?php
 				break;
-		}	
+		}
 ?>
 			</div>
 		</div>
-<?php	
+<?php
 	}
 }
 

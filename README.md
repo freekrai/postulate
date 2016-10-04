@@ -22,7 +22,7 @@ Post types are defined as blueprints in the content/blueprints/ folder
 
 For example:
 
-content/blueprints/page.php
+content/blueprints/page.yml
 
 title: Page
 type: page
