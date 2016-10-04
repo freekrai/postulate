@@ -19,10 +19,10 @@ $app->option('source', 'config.ini');
 $core_path = dirname(__FILE__) . '/core/';
 $core_url = $app->option('site.url') . '/core/';
 
-$upload_path = dirname(__FILE__) . '/content/uploads/'; 
+$upload_path = dirname(__FILE__) . '/content/uploads/';
 $upload_url = $app->option('site.url') . '/content/uploads/';
 
-$theme_path = dirname(__FILE__) . '/content/views/'; 
+$theme_path = dirname(__FILE__) . '/content/views/';
 $theme_url = $app->option('site.url') . '/content/views/';
 
 $app->store('core_path',$core_path);
@@ -46,7 +46,7 @@ if( $app->option('schemaless.enabled') != false ){
 	$server = config('schemaless.server');
 	$app->db = function() use($app) {
 		$client = new MongoHybrid( config("schemaless.server"), array(
-			'db'=>config("schemaless.db") 
+			'db'=>config("schemaless.db")
 		));
 		return $client;
 	};
@@ -141,27 +141,27 @@ $app->route_group('/admin', array(
 		'code'=>'userController#mylist'
 	),
 	array(
-		'path'=>'/user/edit/:user_id', 
+		'path'=>'/user/edit/:user_id',
 		'method'=>'get',
 		'code'=>'userController#edit'
 	),
 	array(
-		'path'=>'/user/edit/:user_id', 
+		'path'=>'/user/edit/:user_id',
 		'method'=>'post',
 		'code'=>'userController#save'
 	),
 	array(
-		'path'=>'/user/new', 
+		'path'=>'/user/new',
 		'method'=>'get',
 		'code'=>'userController#addnew'
 	),
 	array(
-		'path'=>'/user/new', 
+		'path'=>'/user/new',
 		'method'=>'post',
 		'code'=>'userController#savenew'
 	),
 	array(
-		'path'=>'/user/delete/:user_id', 
+		'path'=>'/user/delete/:user_id',
 		'method'=>'get',
 		'code'=>'userController#delete'
 	)
